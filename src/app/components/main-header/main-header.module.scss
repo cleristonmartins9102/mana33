@@ -1,0 +1,31 @@
+@use '../../styles/customized.module.scss' as custom;
+
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  line-height: 90px;
+  height: 90px;;
+  background-color: rgba(18, 17, 17, 70%);
+  .wrap_menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px;
+    .btn {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      font-size: 20px;
+      border: 1px solid custom.$primary-color;
+      height: 60px;
+      transition: all 0.3s ease;
+      &:hover {
+        background-color: custom.$primary-color-light;
+      }
+    }
+  }
+}
