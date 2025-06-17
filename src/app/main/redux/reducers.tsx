@@ -1,24 +1,42 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-// Estado inicial
 const initialState = {
   blackScreenOn: false,
+  leftSlider: true
 }
 
-// Reducer puro
 const blackScreenReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case 'BLACK_SCREEN_ON':
       return { ...state, blackScreenOn: action.payload }
+
+    case 'LEFT_SLIDER_ON': {
+        return { ...state, leftSlider: action.payload }
+    }
     default:
       return state
   }
 }
 
-// Criação da store
+const initForms = {
+  createCompany: {}
+}
+
+const formsReducer = (state = initForms, action: any) => {
+  switch (action.type) {
+    case 'ADD_CREATE_COMPANY_FORM':{
+      return { ...state, createCompany: action.payload }
+    }
+
+    default:
+      return state
+  }
+}
+
 const store = configureStore({
   reducer: {
-    blackScreen: blackScreenReducer,
+    screen: blackScreenReducer,
+    forms: formsReducer
   },
 })
 

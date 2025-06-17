@@ -18,8 +18,8 @@ export const BrandList = () => {
             </tr>
           </thead>
           <tbody>
-            {brands.map((brand) => (
-              <tr className='border-b border-gray-300'>
+            {brands.map((brand, key) => (
+              <tr className='border-b border-gray-300' key={key}>
                 <td className="px-4 py-2 flex items-center">
                   <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
                 </td>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ReduxWrapper from "./components/redux-wraper";
+import axios from "axios";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,6 +23,9 @@ const RootLayout = ({
   children,
   props
 }: Readonly<{ children: React.ReactNode, props: any }>) => {
+
+
+
   return (
     <html lang="en">
       <body

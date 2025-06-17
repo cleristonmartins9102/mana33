@@ -2,23 +2,27 @@
 import Styles from './signup-form1.module.scss'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import i18n from '../../../../i18n'  // caminho do arquivo de inicialização
+import { setNestedValue } from '@/app/data/nested-value'
 
-export default function SignupForm1(props: { setStep: (step: number) => void }) {
-  const { setStep } = props
-  const [form, setForm] = useState({
-    restaurant: '',
-    cnpj: '',
-    email: '',
-    password: '',
-  })
+export default function SignupForm1(props: { setStep: (step: number) => void, setForm: any }) {
+  const { setStep, setForm } = props
+
+  const { t } = useTranslation('common')
+
+  i18n
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    setForm((prevState: any) => {
+      const newState = { ...prevState };
+      setNestedValue(newState, e.target.name, e.target.value);
+      return newState;
+    });
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(form)
   }
 
   return (
@@ -28,31 +32,30 @@ export default function SignupForm1(props: { setStep: (step: number) => void }) 
         className="w-full max-w-md bg-white rounded-xl shadow-md p-8 border border-gray-200"
       >
         <h2 className="text-center text-xl font-medium mb-6 text-gray-700">
-          Inicie suas vendas com a Mana33
+          {t('start_selling')}
         </h2>
 
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-semibold mb-1 text-gray-700">
-              Nome do restaurante <span className="text-red-500">*</span>
+              {t('business_name')}
+              <span className="text-red-500">*</span>
             </label>
             <input
-              name="restaurant"
-              value={form.restaurant}
+              name='name'
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 text-gray-700"
               required
             />
           </div>
           <div>
             <label className="block text-sm font-semibold mb-1 text-gray-700">
-              CNPJ <span className="text-red-500">*</span>
+              {t('register_id')} <span className="text-red-500">*</span>
             </label>
             <input
-              name="cnpj"
-              value={form.cnpj}
+              name="company.registerNumber"
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 text-gray-700"
               required
             />
           </div>
@@ -61,7 +64,7 @@ export default function SignupForm1(props: { setStep: (step: number) => void }) 
         <div className="flex justify-center my-6">
           <div className="bg-teal-600 p-4 rounded-full inline-flex">
             <svg
-                className="bg-teal-600"
+              className="bg-teal-600"
 
               width="48"
               height="48"
@@ -84,9 +87,9 @@ export default function SignupForm1(props: { setStep: (step: number) => void }) 
         </div>
 
         <div className="text-center mb-4">
-          <p className="text-sm font-semibold text-gray-700">Detalhes do cadastro</p>
+          <p className="text-sm font-semibold text-gray-700">{t('register_detail')}</p>
           <p className="text-sm text-gray-500">
-            Entre com os dados da sua conta principal
+            {t('fill_you_account_details')}
           </p>
         </div>
 
@@ -99,23 +102,21 @@ export default function SignupForm1(props: { setStep: (step: number) => void }) 
             </label>
             <input
               type="email"
-              name="email"
-              value={form.email}
+              name="company.email"
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-600"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-600 text-gray-700"
               required
             />
           </div>
           <div>
             <label className="block text-sm font-semibold mb-1 text-gray-700">
-              Senha
+              {t('password')}
             </label>
             <input
               type="password"
               name="password"
-              value={form.password}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-600"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-600 text-gray-700"
               required
             />
           </div>
@@ -126,7 +127,7 @@ export default function SignupForm1(props: { setStep: (step: number) => void }) 
           type="submit"
           className="mt-6 w-full bg-teal-700 hover:bg-teal-600 text-white font-semibold py-2 rounded-md transition"
         >
-          Proximo
+          {t('next')}
         </button>
       </form>
     </div>

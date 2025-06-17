@@ -1,13 +1,31 @@
 'use client'
 
+import { i18n, useTranslation } from 'next-i18next';
 import Styles from './signup-form4.module.scss'
+import { CreateOrganizationModel } from '@/app/data/models/create-organization-model';
+import { setNestedValue } from '@/app/data/nested-value';
 
-export default function SignupIndustry(props: { setStep: (step: number) => void }) {
-  const { setStep } = props;
+export default function SignupIndustry(props: { setStep: (step: number) => void, form: CreateOrganizationModel, setForm: any }) {
+  const { setStep, form, setForm } = props;
+
+  const { t } = useTranslation('common')
+
+  i18n
+
+  const handleChange = (e: React.MouseEvent<HTMLButtonElement>, industry: string) => {
+    setForm((prevState: any) => {
+      const newState = { ...prevState };
+      setNestedValue(newState, (e.target as any).name, industry);
+      return newState;
+    });
+    setStep(5)
+  }
+
   const options = [
     {
-      title: "Restaurante",
-      description: "Fastfood, churrascaria",
+      title: t('restaurant'),
+      id: 'restaurant',
+      description: t('restaurant_description'),
       icon: (
         <svg className='text-teal-600'
           fill="currentColor" height="40px" width="38px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -67,8 +85,9 @@ export default function SignupIndustry(props: { setStep: (step: number) => void 
       ),
     },
     {
-      title: "Mercado",
-      description: "Convenience, álcool e medicamento não controlado",
+      title: t('market'),
+      id: 'market',
+      description: t('market_description'),
       icon: (
         <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
           width="40px" height="38px" viewBox="0 0 1280.000000 1211.000000"
@@ -144,8 +163,9 @@ m6917 18 c157 -53 261 -174 291 -340 32 -169 -68 -362 -227 -441 -222 -109
       ),
     },
     {
-      title: "Farmácia",
-      description: "Medicamentos e produtos de beleza",
+      title: t('pharmacy'),
+      id: 'pharmacy',
+      description: t('pharmacy_description'),
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -169,18 +189,19 @@ m6917 18 c157 -53 261 -174 291 -340 32 -169 -68 -362 -227 -441 -222 -109
     <div className={[Styles.wrap, 'flex justify-center items-center min-h-screen bg-gray-100'].join(' ')}>
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-xl font-semibold text-center mb-6 text-gray-700">
-          Qual o seguimento do seu negócio?
+          {t('industry_question')}
         </h2>
         <div className="space-y-4">
           {options.map((option, index) => (
             <button
-              onClick={() => setStep(5)}
+              name='company.industry'
+              onClick={(e) => handleChange(e, option.id)}
               key={index}
               type="button"
               className="cursor-pointer w-full flex items-center bg-gray-50 border border-gray-200 rounded-lg p-4 shadow hover:bg-gray-100 transition"
             >
-              <div className="mr-4">{option.icon}</div>
-              <div>
+              <div className="mr-4 pointer-events-none">{option.icon}</div>
+              <div className='pointer-events-none'>
                 <div className="font-semibold text-left text-gray-700">{option.title}</div>
                 <div className="text-sm text-gray-600 text-left">{option.description}</div>
               </div>

@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import Styles from './page.module.scss';
 import MainHeader from '@/app/components/main-header/main-header';
 import { useEffect } from 'react';
+import i18n from '../i18n'
+import axios from 'axios';
 
 const ClientWraper = () => {
   const dispatch = useDispatch();

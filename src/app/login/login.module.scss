@@ -1,0 +1,25 @@
+@use '../styles/customized.module.scss' as custom;
+
+.wrap {
+  h1 {
+    font-family: stratos, Helvetica Neue, Helvetica, Arial;
+    line-height: 48px;
+  }
+
+  .poly {
+    clip-path: polygon(
+  60.181% 0,          /* 1. Ponto no topo, a 60.181% da largura, y=0 (topo) */
+  -8.538% 15.789%,    /* 2. Ponto à esquerda, levemente fora do elemento (negativo), 15.789% para baixo */
+  -6.084% 100%,       /* 3. Ponto na base, também fora do lado esquerdo, 100% altura (embaixo) */
+  82.457% 100%,       /* 4. Ponto na base, 82.457% para a direita e 100% altura (embaixo) */
+  87.516% 91.226%,    /* 5. Um pouco acima do fundo, à direita (87.516% largura, 91.226% altura) */
+  92.626% 81.409%,    /* 6. Mais para cima ainda, 92.626% largura e 81.409% altura */
+  100% 66.326%,       /* 7. Na borda direita, 66.326% altura */
+  60.181% 0    
+    );
+  }
+  input {
+    width: 100%;
+    box-shadow: inset 0 2px 4px 0 rgba(0,0,0,.08),inset 0 0 0 1px rgba(0,0,0,.08);
+  }
+}
